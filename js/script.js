@@ -1,14 +1,14 @@
-
+// 
 $(document).ready(function () {
     $("#currentDay").text(moment ().format("MMMM Do YYYY, hh:mm:ss a"));
     $(".saveBtn").on("click", function() {
-        console.log(this);
         var text = $(this).siblings(".description").val();
         var time = $(this).parent().attr("id");
-
+        
         localStorage.setItem(time, text);
     })
 
+    // keeps local storage track of each seperate time divs/slots
     $("#hour8 .description").val(localStorage.getItem("hour8"));
     $("#hour9 .description").val(localStorage.getItem("hour9"));
     $("#hour10 .description").val(localStorage.getItem("hour10"));
@@ -20,13 +20,13 @@ $(document).ready(function () {
     $("#hour16 .description").val(localStorage.getItem("hour16"));
     $("#hour17 .description").val(localStorage.getItem("hour17"));
 
+    // function keeps track of time while also adding and removing classes so that past time-blocks are gray, present time-blocks are red, and future time-blocks are green
     function hourtracker () {
         var currentHour = moment().hour();
 
         $(".time-block").each(function () {
             var blockHour = parseInt($(this).attr("id").split("hour")[1]);
-            console.log(blockHour, currentHour)
-
+    
             if (blockHour < currentHour) {
                 $(this).addClass("past");
                 $(this).removeClass("future");
@@ -42,5 +42,12 @@ $(document).ready(function () {
             }
         })
     }
+
+    // function for keeping the time running on the page
+    function runningTime () {
+        $("#currentDay").text(moment ().format("MMMM Do YYYY, hh:mm:ss a"))
+    }
+
+    setInterval(runningTime, 1000);
     hourtracker();
 }) 
