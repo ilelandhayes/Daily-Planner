@@ -47,7 +47,7 @@ $(document).ready(function () {
     function runningTime () {
         $("#currentDay").text(moment ().format("MMMM Do YYYY, hh:mm:ss a"))
     }
-
     setInterval(runningTime, 1000);
+    
     hourtracker();
 }) 
